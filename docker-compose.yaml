@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  php-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./www:/var/www/html
+    ports:
+      - "80:80"
+    links:
+      - db
+  db:
+    image: mysql:5.6
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_DATABASE=banco-mysql
+      - MYSQL_USER=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./database:/var/lib/mysql
+
